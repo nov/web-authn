@@ -1,7 +1,9 @@
 const cose_alg_ECDSA_w_SHA256 = -7;
 const challenge = 'random-string-generated-by-rp-server';
 
-const register = () => {
+const register = (event) => {
+  event.preventDefault();
+
   let user = {
     id: new TextEncoder().encode(email.value),
     name: email.value,
@@ -23,8 +25,6 @@ const register = () => {
       user: user
     }
   }).then(registered);
-
-  return false;
 };
 
 const registered = (attestation) => {
@@ -34,6 +34,8 @@ const registered = (attestation) => {
 };
 
 const authenticate = () => {
+  event.preventDefault();
+
   console.log('authenticate', {key_id: key_id.value});
 
   navigator.credentials.get({
@@ -42,8 +44,6 @@ const authenticate = () => {
       rpId: location.host
     }
   }).then(registered);
-
-  return false;
 };
 
 const authenticated = (assertion) => {
