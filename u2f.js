@@ -7,7 +7,7 @@ const register = () => {
     name: email.value,
     displayName: display_name.value
   };
-  console.debug('register', user);
+  console.log('register', user);
 
   navigator.credentials.create({
     publicKey: {
@@ -28,13 +28,13 @@ const register = () => {
 };
 
 const registered = (attestation) => {
-  console.debug('Attestation', attestation);
+  console.log('Attestation', attestation);
   localStorage.setItem('key_id', attestation.id);
   setup();
 };
 
 const authenticate = () => {
-  console.debug('authenticate', {key_id: key_id.value});
+  console.log('authenticate', {key_id: key_id.value});
 
   navigator.credentials.get({
     publicKey: {
@@ -47,7 +47,7 @@ const authenticate = () => {
 };
 
 const authenticated = (assertion) => {
-  console.debug('Assertion', assertion);
+  console.log('Assertion', assertion);
 };
 
 const setup = () => {
