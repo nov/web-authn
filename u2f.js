@@ -28,7 +28,8 @@ const register = () => {
 };
 
 const registered = (attestation) => {
-  console.debug(attestation)
+  console.debug(attestation);
+  key_id.value = attestation.id;
 };
 
 const authenticate = () => {
