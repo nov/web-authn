@@ -1,3 +1,0 @@
-[submodule "google-demo"]
-	path = google-demo
-	url = git@github.com:google/webauthndemo.git
