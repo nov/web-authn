@@ -43,8 +43,8 @@ const authenticate = () => {
       challenge: new TextEncoder().encode(challenge),
       rpId: location.host,
       allowCredentials: [{
-        type: 'public-key',
-        id: Uint8Array.from(atob(key_id.value), c => c.charCodeAt(0))
+        id: Uint8Array.from(atob(key_id.value.replace(/_/g, '/').replace(/-/g, '+')), c => c.charCodeAt(0)),
+        type: 'public-key'
       }]
     }
   }).then(registered);
