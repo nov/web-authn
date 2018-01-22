@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Web Authentication API</title>
+    <script src="./u2f.js" async></script>
+  </head>
+  <body>
+    <article>
+      <h1>Web Authentication API Sample (U2F Use-case)</h1>
+      <section>
+        <h2>Step 1. Registration</h2>
+        <form id="registration" action="#register">
+          <p>
+            <input id="email" type="email" placeholder="Email" required>
+          </p>
+          <p>
+            <input id="name" type="text" placeholder="Name">
+          </p>
+          <p>
+            <input id="display_name" type="text" placeholder="Display Name">
+          </p>
+          <p>
+            <input type="submit" value="register">
+          </p>
+        </form>
+      </section>
+      <section>
+        <h2>Step 2. Authentication</h2>
+        <form id="authentication" action="#authenticate">
+          <p>
+            <input id="key_id" type="text" placeholder="Key ID" required>
+          </p>
+          <p>
+            <input type="submit" value="auth">
+          </p>
+        </form>
+      </section>
+    </article>
+  </body>
+</html>
