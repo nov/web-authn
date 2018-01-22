@@ -28,14 +28,26 @@ const register = () => {
 };
 
 const registered = (attestation) => {
-  console.debug(attestation);
+  console.debug('Attestation', attestation);
   localStorage.setItem('key_id', attestation.id);
   setup();
 };
 
 const authenticate = () => {
   console.debug('authenticate', {key_id: key_id.value});
+
+  navigator.credentials.get({
+    publicKey: {
+      challenge: new TextEncoder().encode(challenge),
+      rpId: location.host
+    }
+  }).then(registered);
+
   return false;
+};
+
+const authenticated = (assertion) => {
+  console.debug('Assertion', assertion);
 };
 
 const setup = () => {
