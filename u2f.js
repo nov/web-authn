@@ -4,7 +4,7 @@ const challenge = 'random-string-generated-by-rp-server';
 const register = () => {
   let user = {
     id: new TextEncoder().encode(email.value),
-    name: name.value,
+    name: display_name.value,
     displayName: display_name.value
   };
   console.debug('register', user);
@@ -13,7 +13,7 @@ const register = () => {
     publicKey: {
       challenge: new TextEncoder().encode(challenge),
       pubKeyCredParams: [{
-        type: "public-key",
+        type: 'public-key',
         alg: cose_alg_ECDSA_w_SHA256
       }],
       rp: {
