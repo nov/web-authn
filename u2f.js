@@ -47,7 +47,7 @@ const authenticate = () => {
         type: 'public-key'
       }]
     }
-  }).then(registered);
+  }).then(authenticated);
 };
 
 const authenticated = (assertion) => {
