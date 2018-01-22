@@ -4,7 +4,7 @@ const challenge = 'random-string-generated-by-rp-server';
 const register = () => {
   let user = {
     id: new TextEncoder().encode(email.value),
-    name: display_name.value,
+    name: email.value,
     displayName: display_name.value
   };
   console.debug('register', user);
@@ -17,7 +17,7 @@ const register = () => {
         alg: cose_alg_ECDSA_w_SHA256
       }],
       rp: {
-        id: 'nov.github.io',
+        id: location.host,
         name: 'Nov Sample'
       },
       user: user
@@ -29,7 +29,8 @@ const register = () => {
 
 const registered = (attestation) => {
   console.debug(attestation);
-  key_id.value = attestation.id;
+  localStorage.setItem('key_id', attestation.id);
+  setup();
 };
 
 const authenticate = () => {
@@ -37,5 +38,10 @@ const authenticate = () => {
   return false;
 };
 
+const setup = () => {
+  key_id.value = localStorage.getItem('key_id');
+};
+
 registration.addEventListener('submit', register);
 authentication.addEventListener('submit', authenticate);
+setup();
