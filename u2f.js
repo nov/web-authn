@@ -8,6 +8,7 @@ const register = () => {
     displayName: display_name.value
   };
   console.debug('register', user);
+
   navigator.credentials.create({
     publicKey: {
       challenge: new TextEncoder().encode(challenge),
@@ -22,6 +23,8 @@ const register = () => {
       user: user
     }
   }).then(registered);
+
+  return false;
 };
 
 const registered = (attestation) => {
@@ -30,6 +33,7 @@ const registered = (attestation) => {
 
 const authenticate = () => {
   console.debug('authenticate', {key_id: key_id.value});
+  return false;
 };
 
 registration.addEventListener('submit', register);
