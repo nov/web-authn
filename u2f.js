@@ -2,7 +2,12 @@ const cose_alg_ECDSA_w_SHA256 = -7;
 const challenge = 'random-string-generated-by-rp-server';
 
 const register = () => {
-  console.debug('register', {display_name: display_name.value});
+  let user = {
+    id: new TextEncoder().encode(email.value),
+    name: name.value,
+    displayName: display_name.value
+  };
+  console.debug('register', user);
   navigator.credentials.create({
     publicKey: {
       challenge: new TextEncoder().encode(challenge),
@@ -14,11 +19,7 @@ const register = () => {
         id: 'nov.github.io',
         name: 'Nov Sample'
       },
-      user: {
-        id: new TextEncoder().encode(email.value),
-        name: name.value,
-        displayName: display_name.value
-      }
+      user: user
     }
   }).then(registered);
 };
