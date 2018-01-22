@@ -41,7 +41,11 @@ const authenticate = () => {
   navigator.credentials.get({
     publicKey: {
       challenge: new TextEncoder().encode(challenge),
-      rpId: location.host
+      rpId: location.host,
+      allowCredentials: [{
+        type: 'public-key',
+        id: Uint8Array.from(atob(key_id.value), c => c.charCodeAt(0))
+      }]
     }
   }).then(registered);
 };
