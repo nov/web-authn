@@ -62,6 +62,7 @@ const authenticated = (assertion) => {
   assertion.response.userHandle        = __url_safe_b64_encode__(assertion.response.userHandle);
 
   console.log('Assertion', assertion);
+  console.log('authenticatorData', __url_safe_b64_encode__(assertion.response.authenticatorData));
 };
 
 const setup = () => {
