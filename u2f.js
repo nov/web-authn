@@ -28,9 +28,9 @@ const register = (event) => {
 };
 
 const registered = (attestation) => {
-  attestation.rawId                      = __b64_encode__(attestation.rawId);
-  attestation.response.attestationObject = __b64_encode__(attestation.response.attestationObject);
-  attestation.response.clientDataJSON    = __b64_encode__(attestation.response.clientDataJSON);
+  attestation.rawId                      = __url_safe_b64_encode__(attestation.rawId);
+  attestation.response.attestationObject = __url_safe_b64_encode__(attestation.response.attestationObject);
+  attestation.response.clientDataJSON    = __url_safe_b64_encode__(attestation.response.clientDataJSON);
   console.log('Attestation', attestation);
 
   localStorage.setItem('key_id', attestation.id);
@@ -47,7 +47,7 @@ const authenticate = () => {
       challenge: new TextEncoder().encode(challenge),
       rpId: location.host,
       allowCredentials: [{
-        id: Uint8Array.from(atob(key_id.value.replace(/_/g, '/').replace(/-/g, '+')), c => c.charCodeAt(0)),
+        id: __url_safe_b64_decode__(key_id.value),
         type: 'public-key'
       }]
     }
@@ -55,11 +55,11 @@ const authenticate = () => {
 };
 
 const authenticated = (assertion) => {
-  assertion.rawId                      = __b64_encode__(assertion.rawId);
-  assertion.response.authenticatorData = __b64_encode__(assertion.response.authenticatorData);
-  assertion.response.clientDataJSON    = __b64_encode__(assertion.response.clientDataJSON);
-  assertion.response.signature         = __b64_encode__(assertion.response.signature);
-  assertion.response.userHandle        = __b64_encode__(assertion.response.userHandle);
+  assertion.rawId                      = __url_safe_b64_encode__(assertion.rawId);
+  assertion.response.authenticatorData = __url_safe_b64_encode__(assertion.response.authenticatorData);
+  assertion.response.clientDataJSON    = __url_safe_b64_encode__(assertion.response.clientDataJSON);
+  assertion.response.signature         = __url_safe_b64_encode__(assertion.response.signature);
+  assertion.response.userHandle        = __url_safe_b64_encode__(assertion.response.userHandle);
 
   console.log('Assertion', assertion);
 };
@@ -68,12 +68,17 @@ const setup = () => {
   key_id.value = localStorage.getItem('key_id');
 };
 
-const __b64_encode__ = (array_buffer) => {
+const __url_safe_b64_encode__ = (array_buffer) => {
   let uint8_array = new Uint8Array(array_buffer).reduce(
     (s, byte) => s + String.fromCharCode(byte), ''
   );
-  return btoa(uint8_array);
+  return btoa(uint8_array).replace(/_/g, '/').replace(/-/g, '+');
 };
+
+const __url_safe_b64_decode__ = (string) => {
+  let byte_array = atob(string.replace(/_/g, '/').replace(/-/g, '+'));
+  return Uint8Array.from(byte_array, c => c.charCodeAt(0));
+}
 
 registration.addEventListener('submit', register);
 authentication.addEventListener('submit', authenticate);
