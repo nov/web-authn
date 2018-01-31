@@ -28,10 +28,19 @@ const register = (event) => {
 };
 
 const registered = (attestation) => {
-  attestation.rawId                      = __url_safe_b64_encode__(attestation.rawId);
-  attestation.response.attestationObject = __url_safe_b64_encode__(attestation.response.attestationObject);
-  attestation.response.clientDataJSON    = __url_safe_b64_encode__(attestation.response.clientDataJSON);
   console.log('Attestation', attestation);
+  console.log(
+    'attestation.rawId',
+    __url_safe_b64_encode__(attestation.rawId)
+  );
+  console.log(
+    'attestation.response.attestationObject',
+    __url_safe_b64_encode__(attestation.response.attestationObject)
+  );
+  console.log(
+    'attestation.response.clientDataJSON',
+    __url_safe_b64_encode__(attestation.response.clientDataJSON)
+  );
 
   localStorage.setItem('key_id', attestation.id);
   setup();
@@ -55,14 +64,27 @@ const authenticate = () => {
 };
 
 const authenticated = (assertion) => {
-  assertion.rawId                      = __url_safe_b64_encode__(assertion.rawId);
-  assertion.response.authenticatorData = __url_safe_b64_encode__(assertion.response.authenticatorData);
-  assertion.response.clientDataJSON    = __url_safe_b64_encode__(assertion.response.clientDataJSON);
-  assertion.response.signature         = __url_safe_b64_encode__(assertion.response.signature);
-  assertion.response.userHandle        = __url_safe_b64_encode__(assertion.response.userHandle);
-
   console.log('Assertion', assertion);
-  console.log('authenticatorData', __url_safe_b64_encode__(assertion.response.authenticatorData));
+  console.log(
+    'assertion.rawId',
+    __url_safe_b64_encode__(assertion.rawId)
+  );
+  console.log(
+    'assertion.response.authenticatorData',
+    __url_safe_b64_encode__(assertion.response.authenticatorData)
+  );
+  console.log(
+    'assertion.response.clientDataJSON',
+    __url_safe_b64_encode__(assertion.response.clientDataJSON)
+  );
+  console.log(
+    'assertion.response.signature',
+    __url_safe_b64_encode__(assertion.response.signature)
+  );
+  console.log(
+    'assertion.response.userHandle',
+    __url_safe_b64_encode__(assertion.response.userHandle)
+  );
 };
 
 const setup = () => {
