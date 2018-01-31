@@ -28,6 +28,7 @@ const register = () => {
 };
 
 const registered = (attestation) => {
+  attestation.rawId                      = __b64_encode__(attestation.rawId);
   attestation.response.attestationObject = __b64_encode__(attestation.response.attestationObject);
   attestation.response.clientDataJSON    = __b64_encode__(attestation.response.clientDataJSON);
   console.debug(attestation);
