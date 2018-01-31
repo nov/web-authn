@@ -28,13 +28,25 @@ const register = () => {
 };
 
 const registered = (attestation) => {
+  attestation.response.attestationObject = __b64_encode__(attestation.response.attestationObject);
+  attestation.response.clientDataJSON    = __b64_encode__(attestation.response.clientDataJSON);
   console.debug(attestation);
+  response = {}
+  encoded.attestationObject
+  console.debug(attestation.response.attestationObject)
   key_id.value = attestation.id;
 };
 
 const authenticate = () => {
   console.debug('authenticate', {key_id: key_id.value});
   return false;
+};
+
+const __b64_encode__ = (array_buffer) => {
+  let uint8_array = new Uint8Array(array_buffer).reduce(
+    (s, byte) => s + String.fromCharCode(byte), ''
+  );
+  return btoa(uint8_array);
 };
 
 registration.addEventListener('submit', register);
