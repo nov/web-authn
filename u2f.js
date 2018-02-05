@@ -46,7 +46,7 @@ const registered = (attestation) => {
   setup();
 };
 
-const authenticate = () => {
+const authenticate = (event) => {
   event.preventDefault();
 
   console.log('authenticate', {key_id: key_id.value});
