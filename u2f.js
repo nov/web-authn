@@ -101,7 +101,7 @@ const __url_safe_b64_encode__ = (array_buffer) => {
 const __url_safe_b64_decode__ = (string) => {
   let byte_array = atob(string.replace(/_/g, '/').replace(/-/g, '+'));
   return Uint8Array.from(byte_array, c => c.charCodeAt(0));
-}
+};
 
 registration.addEventListener('submit', register);
 authentication.addEventListener('submit', authenticate);
