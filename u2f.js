@@ -16,14 +16,14 @@ const register = (event) => {
       challenge: new TextEncoder().encode(challenge),
       pubKeyCredParams: [{
         type: 'public-key',
-        alg: cose_alg_ECDSA_w_SHA256,
-        attestation: 'indirect'
+        alg: cose_alg_ECDSA_w_SHA256
       }],
       rp: {
         id: location.host,
         name: 'Nov Sample'
       },
-      user: user
+      user: user,
+      attestation: 'indirect'
     }
   }).then(registered);
 };
