@@ -16,7 +16,8 @@ const register = (event) => {
       challenge: new TextEncoder().encode(challenge),
       pubKeyCredParams: [{
         type: 'public-key',
-        alg: cose_alg_ECDSA_w_SHA256
+        alg: cose_alg_ECDSA_w_SHA256,
+        attestation: 'indirect'
       }],
       rp: {
         id: location.host,
