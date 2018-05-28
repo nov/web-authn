@@ -25,7 +25,7 @@ const register = (event) => {
       user: user,
       attestation: 'direct'
     }
-  }).then(registered);
+  }).then(registered, error);
 };
 
 const registered = (attestation) => {
@@ -54,7 +54,7 @@ const authenticate = (event) => {
       challenge: new TextEncoder().encode(challenge),
       rpId: location.host
     }
-  }).then(authenticated);
+  }).then(authenticated, error);
 };
 
 const authenticated = (assertion) => {
@@ -80,6 +80,10 @@ const authenticated = (assertion) => {
     __url_safe_b64_encode__(assertion.response.userHandle)
   );
 };
+
+const error = (reason) => {
+  console.log('error', reason);
+}
 
 const __url_safe_b64_encode__ = (array_buffer) => {
   let uint8_array = new Uint8Array(array_buffer).reduce(
