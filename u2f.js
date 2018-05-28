@@ -23,7 +23,7 @@ const register = (event) => {
         name: 'Nov Sample'
       },
       user: user,
-      attestation: 'indirect'
+      attestation: 'direct'
     }
   }).then(registered);
 };
