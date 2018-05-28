@@ -2,7 +2,7 @@ require 'cbor'
 require 'json/jwt'
 
 def inspect_authenticator_data(authenticator_data)
-  authenticator_data_bytes = UrlSafeBase64.decode64 authenticator_data
+  authenticator_data_bytes = Base64.urlsafe_decode64 authenticator_data
   # authenticator_data_bytes.each_byte.with_index do |b, i|
   #   puts "#{i} :: #{b}"
   # end
@@ -21,7 +21,8 @@ end
 [
   '7zy5R_qrIHH0M0xgtEGVdDMvK9j5NPuadvjrgbSVRsgBAAAAGQ',
   '7zy5R_qrIHH0M0xgtEGVdDMvK9j5NPuadvjrgbSVRsgBAAAAGg',
-  '7zy5R_qrIHH0M0xgtEGVdDMvK9j5NPuadvjrgbSVRsgBAAAAGw'
+  '7zy5R_qrIHH0M0xgtEGVdDMvK9j5NPuadvjrgbSVRsgBAAAAGw',
+  'MsuA3KzDw1JGLLAfO_4wLebzcS8w_SDs0Zw7pbhYlJUBAAAAAg'
 ].each do |authenticator_data|
   inspect_authenticator_data authenticator_data
 end
