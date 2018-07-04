@@ -9,7 +9,6 @@ const register = (event) => {
     name: email.value,
     displayName: display_name.value
   };
-  console.log('register', user);
 
   let user_verification_on_registration;
   if (user_verification_required_on_registration.checked) {
@@ -20,24 +19,27 @@ const register = (event) => {
     user_verification_on_registration = 'discouraged';
   }
 
+  let public_key_options = {
+    challenge: new TextEncoder().encode(challenge),
+    pubKeyCredParams: [{
+      type: 'public-key',
+      alg: cose_alg_ECDSA_w_SHA256
+    }],
+    rp: {
+      id: location.host,
+      name: 'Nov Sample'
+    },
+    authenticatorSelection: {
+      requireResidentKey: require_resident_key.checked,
+      userVerification: user_verification_on_registration
+    },
+    user: user,
+    attestation: 'direct'
+  };
+  console.log('register', public_key_options);
+
   navigator.credentials.create({
-    publicKey: {
-      challenge: new TextEncoder().encode(challenge),
-      pubKeyCredParams: [{
-        type: 'public-key',
-        alg: cose_alg_ECDSA_w_SHA256
-      }],
-      rp: {
-        id: location.host,
-        name: 'Nov Sample'
-      },
-      authenticatorSelection: {
-        requireResidentKey: require_resident_key.checked,
-        userVerification: user_verification_on_registration
-      },
-      user: user,
-      attestation: 'direct'
-    }
+    publicKey: public_key_options
   }).then(registered, error);
 };
 
@@ -60,8 +62,6 @@ const registered = (attestation) => {
 const authenticate = (event) => {
   event.preventDefault();
 
-  console.log('authenticate');
-
   let user_verification_on_authentication;
   if (user_verification_required_on_authentication.checked) {
     user_verification_on_authentication = 'required';
@@ -71,12 +71,15 @@ const authenticate = (event) => {
     user_verification_on_authentication = 'discouraged';
   }
 
+  let public_key_options = {
+    challenge: new TextEncoder().encode(challenge),
+    rpId: location.host,
+    userVerification: user_verification_on_authentication
+  };
+  console.log('authenticate', public_key_options);
+
   navigator.credentials.get({
-    publicKey: {
-      challenge: new TextEncoder().encode(challenge),
-      rpId: location.host,
-      userVerification: user_verification_on_authentication
-    }
+    publicKey: public_key_options
   }).then(authenticated, error);
 };
 
