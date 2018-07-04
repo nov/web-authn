@@ -22,6 +22,9 @@ const register = (event) => {
         id: location.host,
         name: 'Nov Sample'
       },
+      authenticatorSelection: {
+        requireResidentKey: require_resident_key.checked
+      },
       user: user,
       attestation: 'direct'
     }
