@@ -11,6 +11,15 @@ const register = (event) => {
   };
   console.log('register', user);
 
+  let user_verification_on_registration;
+  if (user_verification_required_on_registration.checked) {
+    user_verification_on_registration = 'required';
+  } else if (user_verification_preferred_on_registration.checked) {
+    user_verification_on_registration = 'preferred';
+  } else if (user_verification_discouraged_on_registration.checked) {
+    user_verification_on_registration = 'discouraged';
+  }
+
   navigator.credentials.create({
     publicKey: {
       challenge: new TextEncoder().encode(challenge),
@@ -24,7 +33,7 @@ const register = (event) => {
       },
       authenticatorSelection: {
         requireResidentKey: require_resident_key.checked,
-        userVerification: 'required'
+        userVerification: user_verification_on_registration
       },
       user: user,
       attestation: 'direct'
@@ -53,11 +62,20 @@ const authenticate = (event) => {
 
   console.log('authenticate');
 
+  let user_verification_on_authentication;
+  if (user_verification_required_on_authentication.checked) {
+    user_verification_on_authentication = 'required';
+  } else if (user_verification_preferred_on_authentication.checked) {
+    user_verification_on_authentication = 'preferred';
+  } else if (user_verification_discouraged_on_authentication.checked) {
+    user_verification_on_authentication = 'discouraged';
+  }
+
   navigator.credentials.get({
     publicKey: {
       challenge: new TextEncoder().encode(challenge),
       rpId: location.host,
-      userVerification: 'required'
+      userVerification: user_verification_on_authentication
     }
   }).then(authenticated, error);
 };

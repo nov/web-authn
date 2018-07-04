@@ -22,6 +22,17 @@
             <label for="require_resident_key">Require Resident Key</label>
           </p>
           <p>
+            <input id="user_verification_required_on_registration"
+                   type="radio" name="user_verification_on_registration" value="required">
+            <label for="user_verification_required_on_registration">Required</label>
+            <input id="user_verification_preferred_on_registration"
+                   type="radio" name="user_verification_on_registration" value="preferred" checked>
+            <label for="user_verification_preferred_on_registration">Preferred</label>
+            <input id="user_verification_discouraged_on_registration"
+                   type="radio" name="user_verification_on_registration" value="discouraged">
+            <label for="user_verification_discouraged_on_registration">Discouraged</label>
+          </p>
+          <p>
             <input type="submit" value="register">
           </p>
         </form>
@@ -29,6 +40,17 @@
       <section>
         <h2>Step 2. Authentication</h2>
         <form id="authentication" action="#authenticate">
+          <p>
+            <input id="user_verification_required_on_authentication"
+                   type="radio" name="user_verification_on_authentication" value="required">
+            <label for="user_verification_required_on_authentication">Required</label>
+            <input id="user_verification_preferred_on_authentication"
+                   type="radio" name="user_verification_on_authentication" value="preferred" checked>
+            <label for="user_verification_preferred_on_authentication">Preferred</label>
+            <input id="user_verification_discouraged_on_authentication"
+                   type="radio" name="user_verification_on_authentication" value="discouraged">
+            <label for="user_verification_discouraged_on_authentication">Discouraged</label>
+          </p>
           <p>
             <input type="submit" value="auth">
           </p>
