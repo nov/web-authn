@@ -23,7 +23,8 @@ const register = (event) => {
         name: 'Nov Sample'
       },
       authenticatorSelection: {
-        requireResidentKey: require_resident_key.checked
+        requireResidentKey: require_resident_key.checked,
+        userVerification: 'required'
       },
       user: user,
       attestation: 'direct'
@@ -55,7 +56,8 @@ const authenticate = (event) => {
   navigator.credentials.get({
     publicKey: {
       challenge: new TextEncoder().encode(challenge),
-      rpId: location.host
+      rpId: location.host,
+      userVerification: 'required'
     }
   }).then(authenticated, error);
 };
