@@ -33,6 +33,17 @@
             <label for="user_verification_discouraged_on_registration">Discouraged</label>
           </p>
           <p>
+            <input id="authenticator_attachment_platform_on_registration"
+                   type="radio" name="authenticator_attachment_on_registration" value="platform">
+            <label for="authenticator_attachment_platform_on_registration">Platform</label>
+            <input id="authenticator_attachment_cross_platform_on_registration"
+                   type="radio" name="authenticator_attachment_on_registration" value="cross-platform">
+            <label for="authenticator_attachment_cross_platform_on_registration">Cross Platform</label>
+            <input id="authenticator_attachment_not_specified_on_registration"
+                   type="radio" name="authenticator_attachment_on_registration" value="not_specified" checked>
+            <label for="authenticator_attachment_not_specified_on_registration">Not Specified</label>
+          </p>
+          <p>
             <input type="submit" value="register">
           </p>
         </form>
