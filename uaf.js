@@ -19,6 +19,23 @@ const register = (event) => {
     user_verification_on_registration = 'discouraged';
   }
 
+  let authenticator_attachment;
+  if (authenticator_attachment_platform_on_registration.checked) {
+    authenticator_attachment = 'platform';
+  } else if (authenticator_attachment_cross_platform_on_registration.checked) {
+    authenticator_attachment = 'cross-platform';
+  } else if (authenticator_attachment_not_specified_on_registration) {
+    authenticator_attachment = null;
+  }
+
+  let authenticatorSelection = {
+    requireResidentKey: require_resident_key.checked,
+    userVerification: user_verification_on_registration
+  };
+  if (authenticator_attachment) {
+    authenticatorSelection.authenticatorAttachment = authenticator_attachment;
+  }
+
   let public_key_options = {
     challenge: new TextEncoder().encode(challenge),
     pubKeyCredParams: [{
@@ -29,10 +46,7 @@ const register = (event) => {
       id: location.host,
       name: 'Nov Sample'
     },
-    authenticatorSelection: {
-      requireResidentKey: require_resident_key.checked,
-      userVerification: user_verification_on_registration
-    },
+    authenticatorSelection: authenticatorSelection,
     user: user,
     // attestation: 'direct'
   };
