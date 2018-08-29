@@ -34,7 +34,7 @@ const register = (event) => {
       userVerification: user_verification_on_registration
     },
     user: user,
-    attestation: 'direct'
+    // attestation: 'direct'
   };
   console.log('register', public_key_options);
 
