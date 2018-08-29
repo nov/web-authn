@@ -11,18 +11,20 @@ def inspect_authenticator_data(authenticator_data)
   sign_count = [
     authenticator_data_bytes.byteslice(0...32),
     authenticator_data_bytes.byteslice(32),
-    authenticator_data_bytes.byteslice(33..-1)
+    authenticator_data_bytes.byteslice(33...37)
   ]
-  p "rp_id_hash : #{rp_id_hash}"
-  p "flags : #{flags}"
-  p "sign_count : #{sign_count}"
+  puts '# RPID Hash'
+  puts Base64.urlsafe_encode64(rp_id_hash, padding: false)
+  puts
+  puts '# Flags'
+  p flags
+  puts
+  puts '# Sign Count'
+  p sign_count
 end
 
 [
-  '7zy5R_qrIHH0M0xgtEGVdDMvK9j5NPuadvjrgbSVRsgBAAAAGQ',
-  '7zy5R_qrIHH0M0xgtEGVdDMvK9j5NPuadvjrgbSVRsgBAAAAGg',
-  '7zy5R_qrIHH0M0xgtEGVdDMvK9j5NPuadvjrgbSVRsgBAAAAGw',
-  'MsuA3KzDw1JGLLAfO_4wLebzcS8w_SDs0Zw7pbhYlJUBAAAAAg'
+  'MsuA3KzDw1JGLLAfO_4wLebzcS8w_SDs0Zw7pbhYlJUBAAAAQA'
 ].each do |authenticator_data|
   inspect_authenticator_data authenticator_data
 end

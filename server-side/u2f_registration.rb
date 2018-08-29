@@ -8,10 +8,12 @@ def inspect_attestation_object(attestation_object)
   p cbor, cbor.keys, cbor['attStmt'].keys
 
   puts
-  puts '# Attestation Statement Certificates'
-  cbor['attStmt']['x5c'].each do |att_stmt_cert|
-    cert = OpenSSL::X509::Certificate.new att_stmt_cert
-    puts cert.to_pem, cert.to_text
+  if cbor['attStmt'].present?
+    puts '# Attestation Statement Certificates'
+    cbor['attStmt']['x5c'].each do |att_stmt_cert|
+      cert = OpenSSL::X509::Certificate.new att_stmt_cert
+      puts cert.to_pem, cert.to_text
+    end
   end
 
   auth_data = cbor['authData']
@@ -24,6 +26,15 @@ def inspect_attestation_object(attestation_object)
     auth_data.byteslice(33...37),
     auth_data.byteslice(37..-1)
   ]
+  puts '# RPID Hash'
+  puts Base64.urlsafe_encode64(rp_id_hash, padding: false)
+  puts
+  puts '# Flags'
+  p flags
+  puts
+  puts '# Sign Count'
+  p sign_count
+  puts
 
   length = (
     ((attestation_data.getbyte(16) << 8) & 0xFF) +
@@ -36,8 +47,12 @@ def inspect_attestation_object(attestation_object)
     attestation_data.byteslice(18...(18 + length)),
     attestation_data.byteslice((18 + length)..-1),
   ]
-  p aaguid, credential_id
-  p Base64.urlsafe_encode64(credential_id, padding: false)
+  puts '# AAGUID'
+  p aaguid
+  puts
+  puts
+  puts '# Credential ID'
+  puts Base64.urlsafe_encode64(credential_id, padding: false)
 
   cbor_ec_key = CBOR.decode(cbor_encoded_ec_key)
   jwk = JSON::JWK.new(
@@ -48,12 +63,15 @@ def inspect_attestation_object(attestation_object)
   )
 
   puts
-  puts '# Device Public Key'
+  puts '# Device Public Key (PEM)'
   puts jwk.to_key.to_pem
+  puts
+  puts '# Device Public Key (TEXT)'
+  puts jwk.to_key.to_text
 end
 
 [
-  'o2NmbXRmcGFja2VkZ2F0dFN0bXSjY2FsZyZjc2lnWEgwRgIhAIiba4gAoCIHTrDZhqvYKjUbd1BBuJcrFVhGYObYwYEDAiEAwRGZ3KYy4hEws8A6R5EvAhNbxX5SJrewI5D0kK5kv9JjeDVjgVkCwjCCAr4wggGmoAMCAQICBHSG_cIwDQYJKoZIhvcNAQELBQAwLjEsMCoGA1UEAxMjWXViaWNvIFUyRiBSb290IENBIFNlcmlhbCA0NTcyMDA2MzEwIBcNMTQwODAxMDAwMDAwWhgPMjA1MDA5MDQwMDAwMDBaMG8xCzAJBgNVBAYTAlNFMRIwEAYDVQQKDAlZdWJpY28gQUIxIjAgBgNVBAsMGUF1dGhlbnRpY2F0b3IgQXR0ZXN0YXRpb24xKDAmBgNVBAMMH1l1YmljbyBVMkYgRUUgU2VyaWFsIDE5NTUwMDM4NDIwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAASVXfOt9yR9MXXv_ZzE8xpOh4664YEJVmFQ-ziLLl9lJ79XQJqlgaUNCsUvGERcChNUihNTyKTlmnBOUjvATevto2wwajAiBgkrBgEEAYLECgIEFTEuMy42LjEuNC4xLjQxNDgyLjEuMTATBgsrBgEEAYLlHAIBAQQEAwIFIDAhBgsrBgEEAYLlHAEBBAQSBBD4oBHzjApNFYAGFxEfntx9MAwGA1UdEwEB_wQCMAAwDQYJKoZIhvcNAQELBQADggEBADFcSIDmmlJ-OGaJvWn9CqhvSeueToVFQVVvqtALOgCKHdwB-Wx29mg2GpHiMsgQp5xjB0ybbnpG6x212FxESJ-GinZD0ipchi7APwPlhIvjgH16zVX44a4e4hOsc6tLIOP71SaMsHuHgCcdH0vg5d2sc006WJe9TXO6fzV-ogjJnYpNKQLmCXoAXE3JBNwKGBIOCvfQDPyWmiiG5bGxYfPty8Z3pnjX-1MDnM2hhr40ulMxlSNDnX_ZSnDyMGIbk8TOQmjTF02UO8auP8k3wt5D1rROIRU9-FCSX5WQYi68RuDrGMZB8P5-byoJqbKQdxn2LmE1oZAyohPAmLcoPO5oYXV0aERhdGFYxDLLgNysw8NSRiywHzv-MC3m83EvMP0g7NGcO6W4WJSVQQAAAB_4oBHzjApNFYAGFxEfntx9AEANvdiqxrq7tMzf_-THVXA1WltWFGjRIzLIpi3i4qm6esfjkTSv5HFz7G_TFUuHvXvcdnvvi5QqaW30JTHJKcsDpQECAyYgASFYIMC1kwRTG1ujeH3HhO0evMrOnhy3YxRQexc1mQ2uxn68IlggNBfW7UxUhb44z_83yUMHyAW2zEcznign3jcyBSHBNFM'
+  'o2NmbXRkbm9uZWdhdHRTdG10oGhhdXRoRGF0YVjEMsuA3KzDw1JGLLAfO_4wLebzcS8w_SDs0Zw7pbhYlJVBAAAAPgAAAAAAAAAAAAAAAAAAAAAAQBBQHzNjCIqpdkEa8go1a53-QxcfxDhyJZK-m6BPy4PHZlVlsmQ5jtxzSBt02WO_TqTmLrZV_P3_aqNxyBrojWqlAQIDJiABIVggCL9kKivDYlLKly11xF8Hf6F0vGWbLYMqTCx2FtnQOs0iWCD9NxFEzz5UFnyGEgT8AUNYQq5KtYA63MyZ9mWf4reOJw'
 ].each do |attestation_object|
   inspect_attestation_object(attestation_object)
 end
