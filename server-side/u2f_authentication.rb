@@ -24,7 +24,7 @@ def inspect_authenticator_data(authenticator_data)
 end
 
 [
-  'MsuA3KzDw1JGLLAfO_4wLebzcS8w_SDs0Zw7pbhYlJUBAAAAQA'
+  'MsuA3KzDw1JGLLAfO_4wLebzcS8w_SDs0Zw7pbhYlJUEAAAAAQ'
 ].each do |authenticator_data|
   inspect_authenticator_data authenticator_data
 end

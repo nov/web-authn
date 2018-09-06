@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Web Authentication API</title>
+    <script src="./2nd-factor.js" async></script>
+  </head>
+  <body>
+    <article>
+      <h1>Web Authentication API Sample (2nd-factor Use-case)</h1>
+      <section>
+        <h2>Step 1. Registration</h2>
+        <form id="registration" action="#register">
+          <p>
+            <input id="email" type="email" placeholder="Email" autocomplete="email" required>
+          </p>
+          <p>
+            <input id="display_name" type="text" placeholder="Display Name" autocomplete="name">
+          </p>
+          <p>
+            <input type="submit" value="register">
+          </p>
+        </form>
+      </section>
+      <section>
+        <h2>Step 2. Authentication</h2>
+        <form id="authentication" action="#authenticate">
+          <p>
+            <input id="key_id" type="text" placeholder="Key ID" required>
+          </p>
+          <p>
+            <input type="submit" value="auth">
+          </p>
+        </form>
+      </section>
+    </article>
+  </body>
+</html>
