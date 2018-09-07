@@ -42,6 +42,10 @@ const registered = (attestation) => {
     'attestation.response.clientDataJSON',
     __url_safe_b64_encode__(attestation.response.clientDataJSON)
   );
+  console.log(
+    'attestation.getClientExtensionResults()',
+    attestation.getClientExtensionResults()
+  );
 
   localStorage.setItem('key_id', attestation.id);
   setup();
@@ -85,6 +89,10 @@ const authenticated = (assertion) => {
   console.log(
     'assertion.response.userHandle',
     __url_safe_b64_encode__(assertion.response.userHandle)
+  );
+  console.log(
+    'attestation.getClientExtensionResults()',
+    attestation.getClientExtensionResults()
   );
 };
 

@@ -74,7 +74,7 @@ const registered = (attestation) => {
   console.log(
     'attestation.getClientExtensionResults()',
     attestation.getClientExtensionResults()
-  )
+  );
 };
 
 const authenticate = (event) => {
@@ -122,6 +122,10 @@ const authenticated = (assertion) => {
   console.log(
     'assertion.response.userHandle',
     __url_safe_b64_encode__(assertion.response.userHandle)
+  );
+  console.log(
+    'attestation.getClientExtensionResults()',
+    attestation.getClientExtensionResults()
   );
 };
 
