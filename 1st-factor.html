@@ -12,16 +12,18 @@
         <h2>Step 1. Registration</h2>
         <form id="registration" action="#register">
           <p>
-            <input id="email" type="email" placeholder="Email" autocomplete="email" required>
+            <input id="email" type="email" placeholder="Email" autocomplete="email" value="nov@example.com" required>
           </p>
           <p>
-            <input id="display_name" type="text" placeholder="Display Name" autocomplete="name">
+            <input id="display_name" type="text" placeholder="Display Name" value="nov" autocomplete="name">
           </p>
           <p>
-            <input id="require_resident_key" type="checkbox" name="require_resident_key">
+            <input id="require_resident_key" type="checkbox" name="require_resident_key" checked>
             <label for="require_resident_key">Require Resident Key</label>
+            <b><i># needed for 1st-factor use-case?</i></b>
           </p>
           <p>
+            <b>User Verification:</b>
             <input id="user_verification_required_on_registration"
                    type="radio" name="user_verification_on_registration" value="required">
             <label for="user_verification_required_on_registration">Required</label>
@@ -33,6 +35,7 @@
             <label for="user_verification_discouraged_on_registration">Discouraged</label>
           </p>
           <p>
+            <b>Authenticator Attachment:</b>
             <input id="authenticator_attachment_platform_on_registration"
                    type="radio" name="authenticator_attachment_on_registration" value="platform">
             <label for="authenticator_attachment_platform_on_registration">Platform</label>
@@ -52,6 +55,7 @@
         <h2>Step 2. Authentication</h2>
         <form id="authentication" action="#authenticate">
           <p>
+            <b>User Verification:</b>
             <input id="user_verification_required_on_authentication"
                    type="radio" name="user_verification_on_authentication" value="required">
             <label for="user_verification_required_on_authentication">Required</label>
