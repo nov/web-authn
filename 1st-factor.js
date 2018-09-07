@@ -71,6 +71,10 @@ const registered = (attestation) => {
     'attestation.response.clientDataJSON',
     __url_safe_b64_encode__(attestation.response.clientDataJSON)
   );
+  console.log(
+    'attestation.getClientExtensionResults()',
+    attestation.getClientExtensionResults()
+  )
 };
 
 const authenticate = (event) => {
