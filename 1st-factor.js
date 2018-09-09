@@ -140,7 +140,7 @@ const __url_safe_b64_encode__ = (array_buffer) => {
     (s, byte) => s + String.fromCharCode(byte), ''
   );
   let pattern2 = btoa(uint8_array).replace(/\//g, '_').replace(/\+/g, '-').replace(/=/g, '');
-  console('__url_safe_b64_encode__', pattern1, pattern2);
+  console.info('__url_safe_b64_encode__', pattern1, pattern2);
   return pattern2;
 };
 
