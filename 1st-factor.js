@@ -131,13 +131,17 @@ const authenticated = (assertion) => {
 
 const error = (reason) => {
   console.log('error', reason);
-}
+};
 
 const __url_safe_b64_encode__ = (array_buffer) => {
+  let pattern1 = array_buffer.toString('base64').replace(/\//g, '_').replace(/\+/g, '-').replace(/=/g, '');
+
   let uint8_array = new Uint8Array(array_buffer).reduce(
     (s, byte) => s + String.fromCharCode(byte), ''
   );
-  return btoa(uint8_array).replace(/\//g, '_').replace(/\+/g, '-').replace(/=/g, '');
+  let pattern2 = btoa(uint8_array).replace(/\//g, '_').replace(/\+/g, '-').replace(/=/g, '');
+  console('__url_safe_b64_encode__', pattern1, pattern2);
+  return pattern2;
 };
 
 const __url_safe_b64_decode__ = (string) => {
