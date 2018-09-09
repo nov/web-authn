@@ -125,7 +125,7 @@ const authenticated = (assertion) => {
   );
   console.log(
     'attestation.getClientExtensionResults()',
-    attestation.getClientExtensionResults()
+    assertion.getClientExtensionResults()
   );
 };
 
