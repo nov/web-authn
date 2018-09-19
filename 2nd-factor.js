@@ -91,8 +91,8 @@ const authenticated = (assertion) => {
     __url_safe_b64_encode__(assertion.response.userHandle)
   );
   console.log(
-    'attestation.getClientExtensionResults()',
-    attestation.getClientExtensionResults()
+    'assertion.getClientExtensionResults()',
+    assertion.getClientExtensionResults()
   );
 };
 
