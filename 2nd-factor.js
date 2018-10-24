@@ -23,7 +23,7 @@ const register = (event) => {
       },
       user: user,
       // attestation: 'direct',
-      authenticatorExtensions: {
+      extensions: {
         uvm: true
       }
     }
