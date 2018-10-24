@@ -9,9 +9,8 @@ const register = (event) => {
     name: email.value,
     displayName: display_name.value
   };
-  console.log('register', user);
 
-  navigator.credentials.create({
+  let public_key_options = {
     publicKey: {
       challenge: new TextEncoder().encode(challenge),
       pubKeyCredParams: [{
@@ -28,7 +27,10 @@ const register = (event) => {
         uvm: true
       }
     }
-  }).then(registered);
+  };
+  console.log('register', public_key_options);
+
+  navigator.credentials.create(public_key_options).then(registered);
 };
 
 const registered = (attestation) => {
@@ -57,9 +59,7 @@ const registered = (attestation) => {
 const authenticate = (event) => {
   event.preventDefault();
 
-  console.log('authenticate', {key_id: key_id.value});
-
-  navigator.credentials.get({
+  let public_key_options = {
     publicKey: {
       challenge: new TextEncoder().encode(challenge),
       rpId: location.host,
@@ -68,7 +68,10 @@ const authenticate = (event) => {
         type: 'public-key'
       }]
     }
-  }).then(authenticated);
+  };
+  console.log('authenticate', public_key_options);
+
+  navigator.credentials.get(public_key_options).then(authenticated);
 };
 
 const authenticated = (assertion) => {
