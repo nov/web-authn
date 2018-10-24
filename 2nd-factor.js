@@ -24,7 +24,8 @@ const register = (event) => {
       user: user,
       // attestation: 'direct',
       extensions: {
-        uvm: true
+        uvm: true,
+        exts: true
       }
     }
   };
