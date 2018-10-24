@@ -23,7 +23,10 @@ const register = (event) => {
         name: 'Nov Sample'
       },
       user: user,
-      // attestation: 'direct'
+      // attestation: 'direct',
+      authenticatorExtensions: {
+        uvm: true
+      }
     }
   }).then(registered);
 };
