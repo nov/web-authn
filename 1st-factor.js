@@ -48,7 +48,7 @@ const register = (event) => {
     },
     authenticatorSelection: authenticatorSelection,
     user: user,
-    // attestation: 'direct'
+    attestation: 'indirect'
   };
   console.log('register', public_key_options);
 
