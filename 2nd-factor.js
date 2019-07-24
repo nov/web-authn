@@ -67,7 +67,8 @@ const authenticate = (event) => {
       rpId: location.host,
       allowCredentials: [{
         id: __url_safe_b64_decode__(key_id.value),
-        type: 'public-key'
+        type: 'public-key',
+        transports: ['internal']
       }]
     }
   };
