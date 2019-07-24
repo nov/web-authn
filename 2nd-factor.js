@@ -32,7 +32,7 @@ const register = (event) => {
   };
   console.log('register', public_key_options);
 
-  navigator.credentials.create(public_key_options).then(registered);
+  navigator.credentials.create(public_key_options).then(registered).catch(error);
 };
 
 const registered = (attestation) => {
@@ -73,7 +73,7 @@ const authenticate = (event) => {
   };
   console.log('authenticate', public_key_options);
 
-  navigator.credentials.get(public_key_options).then(authenticated);
+  navigator.credentials.get(public_key_options).then(authenticated).catch(error);
 };
 
 const authenticated = (assertion) => {
@@ -102,6 +102,10 @@ const authenticated = (assertion) => {
     'assertion.getClientExtensionResults()',
     assertion.getClientExtensionResults()
   );
+};
+
+const error = (reason) => {
+  console.log('error', reason);
 };
 
 const setup = () => {
